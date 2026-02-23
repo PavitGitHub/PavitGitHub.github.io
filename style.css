@@ -35,6 +35,12 @@ html, body {
     will-change: transform;
     top: 0;
     left: 0;
+    transition: width 0.2s ease, height 0.2s ease;
+}
+
+.cursor.hovering {
+    width: 10px;
+    height: 10px;
 }
 
 /* Grain Overlay */
@@ -144,6 +150,33 @@ body::before {
     padding: 4px 0;
 }
 
+/* hover — title turns gold and underline grows from centre outward */
+.project-item.active:hover .project-title {
+    color: var(--accent);
+    background-size: 100% 1px;
+}
+
+/* click press — brief opacity dip as tactile feedback */
+.project-item.active:active .project-title {
+    opacity: 0.7;
+}
+
+/* ↗ superscript icon — signals the title is a clickable link */
+.project-title::after {
+    content: '↗';
+    font-family: 'DM Mono', monospace;
+    font-size: 0.4em;
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    vertical-align: super;
+}
+
+/* ↗ icon fades in when hovering the active title */
+.project-item.active:hover .project-title::after {
+    opacity: 0.8;
+}
+
 .project-subtitle {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -160,6 +193,7 @@ body::before {
 .project-item.active .project-subtitle { 
     opacity: 1; 
 }
+
 
 /* ── DIVIDER ── */
 .divider {

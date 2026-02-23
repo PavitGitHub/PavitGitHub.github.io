@@ -1,10 +1,11 @@
+// DATA
 const projects = [
-    { title: "Neural Canvas",    tag: "Machine Learning"    },
-    { title: "Orbit CLI",        tag: "Developer Tools"     },
-    { title: "Pulse Dashboard",  tag: "Data Visualisation"  },
-    { title: "Lumen UI",         tag: "Design System"       },
-    { title: "Rift Protocol",    tag: "Distributed Systems" },
-    { title: "Echo Interpreter", tag: "Programming Language" },
+    { title: "Large Language Model",    tag: "Machine Learning - Python"                },
+    { title: "Pathfinding",             tag: "Algorithms and Data Structure - C"        },
+    { title: "Weather App",             tag: "Website Design - HTML, CSS, JavaScript"   },    
+    { title: "Shadow Dance",            tag: "Software Modeling and Design - Java"      },
+    { title: "Lucky Thirteen",          tag: "Software Modeling and Design - Java"      },
+    { title: "Ore Mining Simulator",    tag: "Software Modeling and Design - Java"      },
 ];
 
 // STATE 
@@ -42,6 +43,17 @@ const items = projects.map(p => {
         <span class="project-title">${p.title}</span>
         <span class="project-subtitle">${p.tag}</span>
         <div class="divider"></div>`;
+    
+    // cursor dot grows when hovering over the active project item
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+
+    // clicking the active title opens its GitHub URL in a new tab
+    // Need to replace the "#" placeholders in the data above with real repo links
+    el.addEventListener('click', () => {
+        if (p.url && p.url !== '#') window.open(p.url, '_blank');
+    });
+
     container.appendChild(el);
     return el;
 });

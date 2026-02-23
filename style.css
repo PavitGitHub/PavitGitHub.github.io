@@ -25,14 +25,16 @@ html, body {
 /* CURSOR Design */
 .cursor {
     position: fixed;
+    transform: translate(-60px, -60px);
     width: 6px;
     height: 6px;
     background: var(--accent);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s;
+    will-change: transform;
+    top: 0;
+    left: 0;
 }
 
 /* Grain Overlay */

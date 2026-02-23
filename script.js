@@ -17,10 +17,21 @@ const arrowDown = document.getElementById('arrowDown');
 const counter   = document.getElementById('counter');
 const cursor    = document.getElementById('cursor');
 
+let mouseX = -60, mouseY = -60;
+let rafPending = false;
+
 // Custom Cursor
 document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top  = e.clientY + 'px';
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(() => {
+            cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            rafPending = false;
+    });
+  }
+
 });
 
 // Project Items
@@ -73,7 +84,7 @@ function render(animate = true) {
       // Re-enable transitions after first paint
     if (!animate) {
         requestAnimationFrame(() => {
-        items.forEach(el => el.style.transition = '');
+            items.forEach(el => el.style.transition = '');
         });
     }
 }

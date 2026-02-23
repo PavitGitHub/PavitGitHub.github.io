@@ -1,13 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pavit's Portfolio</title>
+    <title>Portfolio</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Hello World</h1>
-    <p>check for errors</p>
-    
+    <div class="cursor" id="cursor"></div>
+
+    <div class="name">— Pavit Vathna</div>
+    <div class="hint">scroll to explore</div>
+    <div class="counter" id="counter">01 / 06</div>
+
+    <!-- Project Titles -->
+    <div class="scene">
+        <div class="line-left"></div>
+        <div class="line-right"></div>
+
+        <div class="column">
+            <!-- Up arrow should only be visible when there are items above -->
+            <div class="arrow" id="arrowUp">
+                <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+            </div>
+
+            <!-- Project items here between arrows -->
+            <div class="projects" id="projects"></div>
+
+            <!-- Down arrow should only be visible when there are items below -->
+            <div class="arrow" id="arrowDown">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactivity -->
+    <script src="script.js"></script>
+
 </body>
+
 </html>

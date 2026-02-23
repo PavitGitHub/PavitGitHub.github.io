@@ -1,0 +1,220 @@
+/* RESET & VARIABLES */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #0a0a0a;
+    --fg: #f0ece3;
+    --accent: #c8a96e;
+    --muted: rgba(240, 236, 227, 0.18);
+}
+
+/* BASE */
+html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'DM Serif Display', serif;
+    overflow: hidden;
+    cursor: none;
+}
+
+/* CURSOR Design */
+.cursor {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+}
+
+/* Grain Overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.5;
+}
+
+.scene {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+    animation: fadeUp 1s ease both;
+}
+
+.line-left, .line-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    opacity: 0.6;
+}
+
+.line-left { 
+    left: calc(50% - 260px); 
+}
+
+.line-right { 
+    right: calc(50% - 260px); 
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    width: 520px
+}
+
+.arrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.4s;
+    user-select: none;
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: none;
+}
+
+.arrow.visible { 
+    opacity: 0.7; 
+}
+
+.arrow svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 1.5;
+}
+
+/* ── Project Title Design ── */
+.projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+}
+
+.project-item {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    transition: 
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity   0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        font-size 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    user-select: none;
+    will-change: transform, opacity;
+}
+
+.project-title {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    color: var(--fg);
+    display: block;
+    padding: 4px 0;
+}
+
+.project-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.4s;
+    margin-top: 8px;
+    display: block;
+}
+
+/* ── ACTIVE STATE ── */
+.project-item.active .project-subtitle { 
+    opacity: 1; 
+}
+
+/* ── DIVIDER ── */
+.divider {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 12px auto 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+    opacity: 0;
+}
+
+.project-item.active .divider {
+    transform: scaleX(1);
+    opacity: 0.6;
+}
+
+/* ── COUNTER ── */
+.counter {
+    position: fixed;
+    bottom: 40px;
+    right: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--fg);
+    opacity: 0.25;
+}
+
+/* ── NAME ── */
+.name {
+    position: fixed;
+    top: 40px;
+    left: 48px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    color: var(--fg);
+    opacity: 0.5;
+}
+
+/* ── HINT ── */
+.hint {
+    position: fixed;
+    bottom: 40px;
+    left: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--fg);
+    opacity: 0.2;
+    text-transform: uppercase;
+}
+
+/* ── ANIMATION ── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

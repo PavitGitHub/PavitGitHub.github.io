@@ -3,6 +3,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    cursor: none !important;
 }
 
 :root {
@@ -19,7 +20,6 @@ html, body {
     color: var(--fg);
     font-family: 'DM Serif Display', serif;
     overflow: hidden;
-    cursor: none;
 }
 
 /* CURSOR Design */
@@ -146,8 +146,13 @@ body::before {
     letter-spacing: -0.01em;
     line-height: 1;
     color: var(--fg);
-    display: block;
+    display: inline-block;
     padding: 4px 0;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    transition: color 0.25s ease, background-size 0.3s ease;
 }
 
 /* hover — title turns gold and underline grows from centre outward */
@@ -247,6 +252,243 @@ body::before {
     color: var(--fg);
     opacity: 0.2;
     text-transform: uppercase;
+}
+
+/* ── TOP-RIGHT BUTTON GROUP ── */
+.top-right-btns {
+    position: fixed;
+    top: 40px;
+    right: 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    z-index: 200;
+}
+
+/* ── CAREER BUTTON ── */
+/* Mirrors the .name label on the top-left — same mono font, sits top-right */
+.career-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.7;
+    padding-bottom: 2px;
+    /* Animated underline on hover — consistent with project title hover */
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: opacity 0.3s ease, background-size 0.3s ease;
+}
+
+.career-btn:hover {
+    opacity: 1;
+    background-size: 100% 1px;
+}
+
+/* ── LinkedIn Redirect BUTTON ── */
+.linkedin-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.7;
+    padding-bottom: 2px;
+    text-decoration: none;
+    /* Animated underline on hover */
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: opacity 0.3s ease, background-size 0.3s ease;
+}
+
+.linkedin-btn:hover {
+    opacity: 0.9;
+    background-size: 100% 1px;
+}
+
+/* ── RESUME DOWNLOAD BUTTON ── */
+.resume-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.7;
+    padding-bottom: 2px;
+    text-decoration: none;
+    /* Animated underline on hover */
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: opacity 0.3s ease, background-size 0.3s ease;
+}
+
+.resume-btn:hover {
+    opacity: 0.9;
+    background-size: 100% 1px;
+}
+
+/* ── CAREER PANEL ── */
+/* Full-height drawer that slides in from the right */
+.career-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 420px;
+    height: 100vh;
+    background: #0f0f0f;
+    border-left: 1px solid rgba(200, 169, 110, 0.15);
+    z-index: 500;
+    /* Hidden off-screen by default, slides in when .open is added */
+    transform: translateX(100%);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Scrollable — the timeline can be longer than the viewport */
+    overflow-y: auto;
+    padding: 80px 48px 60px;
+    /* Hide scrollbar visually while keeping scroll functionality */
+    scrollbar-width: none;
+}
+
+.career-panel::-webkit-scrollbar { display: none; }
+
+/* Panel slides into view */
+.career-panel.open { transform: translateX(0); }
+
+/* ── CAREER CLOSE BUTTON ── */
+.career-close {
+    position: absolute;
+    top: 40px;
+    right: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg);
+    opacity: 0.4;
+    transition: opacity 0.3s;
+}
+
+.career-close:hover { opacity: 1; }
+
+/* ── CAREER HEADING ── */
+.career-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--fg);
+    margin-bottom: 48px;
+    opacity: 0.9;
+}
+
+/* ── TIMELINE ── */
+.timeline {
+    position: relative;
+}
+
+/* Continuous vertical gold spine running through all year entries */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 52px;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    opacity: 0.3;
+}
+
+/* Each year group */
+.timeline-year {
+    margin-bottom: 36px;
+    position: relative;
+}
+
+/* Row containing the year label and the dot on the spine */
+.year-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+/* Bold year number — same serif as project titles */
+.year-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--fg);
+    width: 52px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+/* Gold glowing dot sitting on the spine — matches --accent colour */
+.year-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(200, 169, 110, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+/* Entries indented to the right of the spine */
+.year-entries {
+    padding-left: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: -6px;
+}
+
+.entry {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+}
+
+/* Month number in small gold mono */
+.entry-month {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    opacity: 0.7;
+    min-width: 16px;
+    flex-shrink: 0;
+}
+
+/* Event description text */
+.entry-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--fg);
+    opacity: 0.7;
+    line-height: 1.5;
+}
+
+/* ── CAREER OVERLAY ── */
+/* Dark backdrop behind the panel — click it to close */
+.career-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 400;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.career-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* ── ANIMATION ── */

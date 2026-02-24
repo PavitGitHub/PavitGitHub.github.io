@@ -1,11 +1,11 @@
 // DATA
 const projects = [
-    { title: "Large Language Model",    tag: "Machine Learning - Python"                },
-    { title: "Pathfinding",             tag: "Algorithms and Data Structure - C"        },
-    { title: "Weather App",             tag: "Website Design - HTML, CSS, JavaScript"   },    
-    { title: "Shadow Dance",            tag: "Software Modeling and Design - Java"      },
-    { title: "Lucky Thirteen",          tag: "Software Modeling and Design - Java"      },
-    { title: "Ore Mining Simulator",    tag: "Software Modeling and Design - Java"      },
+    { title: "Large Language Model",    tag: "Machine Learning - Python",               url:"#"},
+    { title: "Pathfinding",             tag: "Algorithms and Data Structure - C"  ,     url:"#"},
+    { title: "Weather App",             tag: "Website Design - HTML, CSS, JavaScript",  url:"#"},    
+    { title: "Shadow Dance",            tag: "Software Modeling and Design - Java",     url:"#"},
+    { title: "Lucky Thirteen",          tag: "Software Modeling and Design - Java",     url:"#"},
+    { title: "Ore Mining Simulator",    tag: "Software Modeling and Design - Java",     url:"https://github.com/PavitGitHub/Ore-Mining-Simulator"},
 ];
 
 // STATE 
@@ -17,6 +17,12 @@ const arrowUp   = document.getElementById('arrowUp');
 const arrowDown = document.getElementById('arrowDown');
 const counter   = document.getElementById('counter');
 const cursor    = document.getElementById('cursor');
+const careerBtn     = document.getElementById('careerBtn');
+const careerPanel   = document.getElementById('careerPanel');
+const careerOverlay = document.getElementById('careerOverlay');
+const careerClose   = document.getElementById('careerClose');
+const resumeBtn     = document.querySelector('.resume-btn');
+const linkedinBtn   = document.querySelector('.linkedin-btn');
 
 let mouseX = -60, mouseY = -60;
 let rafPending = false;
@@ -33,6 +39,34 @@ document.addEventListener('mousemove', e => {
     });
   }
 
+});
+
+
+// CAREER PANEL 
+// panelOpen is checked by every navigation listener 
+// when true, wheel / touch / keyboard won't scroll the project titles
+let panelOpen = false;
+
+function openPanel() {
+    panelOpen = true;
+    careerPanel.classList.add('open');
+    careerOverlay.classList.add('open');
+}
+
+function closePanel() {
+    panelOpen = false;
+    careerPanel.classList.remove('open');
+    careerOverlay.classList.remove('open');
+}
+
+careerBtn.addEventListener('click', openPanel);
+careerClose.addEventListener('click', closePanel);
+careerOverlay.addEventListener('click', closePanel);
+
+// Cursor grows when hovering Career button and close button
+[careerBtn, careerClose, resumeBtn, linkedinBtn].forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
 });
 
 // Project Items
@@ -75,7 +109,6 @@ function render(animate = true) {
 
         // Suppress transitions on first render
         el.style.transition = animate ? '' : 'none';
-
         el.style.opacity       = opacity;
         el.style.transform     = `translateY(calc(-50% + ${translateY}px))`;
         el.style.top           = '50%';
@@ -116,7 +149,7 @@ function navigate(dir) {
 
 // Mouse wheel
 window.addEventListener('wheel', e => {
-    navigate(e.deltaY > 0 ? 1 : -1);
+    if (!panelOpen) navigate(e.deltaY > 0 ? 1 : -1);
 }, { passive: true });
 
 // Touch swipe
@@ -129,7 +162,8 @@ window.addEventListener('touchstart', e => {
 window.addEventListener('touchend', e => {
     if (touchY === null) return;
     const dy = touchY - e.changedTouches[0].clientY;
-    if (Math.abs(dy) > 30) navigate(dy > 0 ? 1 : -1);
+    // Only navigate projects if the career panel is closed
+    if (!panelOpen && Math.abs(dy) > 30) navigate(dy > 0 ? 1 : -1);
     touchY = null;
 }, { passive: true });
 
@@ -139,8 +173,11 @@ arrowDown.addEventListener('click', () => navigate(1));
 
 // Keyboard arrows
 document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  navigate(-1);
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') navigate(1);
+    if (!panelOpen) {
+        if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  navigate(-1);
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') navigate(1);
+    }
+    if (e.key === 'Escape') closePanel();
 });
 
 

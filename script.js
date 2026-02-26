@@ -1,11 +1,11 @@
 // DATA
 const projects = [
-    { title: "Large Language Model",    tag: "Machine Learning - Python",               url:"#"},
-    { title: "Pathfinding",             tag: "Algorithms and Data Structure - C"  ,     url:"#"},
-    { title: "Weather App",             tag: "Website Design - HTML, CSS, JavaScript",  url:"#"},    
-    { title: "Shadow Dance",            tag: "Software Modeling and Design - Java",     url:"#"},
-    { title: "Lucky Thirteen",          tag: "Software Modeling and Design - Java",     url:"#"},
-    { title: "Ore Mining Simulator",    tag: "Software Modeling and Design - Java",     url:"https://github.com/PavitGitHub/Ore-Mining-Simulator"},
+    { title: "NAO V5 Humanoid",         tag: "AI Robotics - Python, NodeJS, Google Cloud",      url:"https://github.com/PavitGitHub/naorobotproject"},
+    { title: "Weather App",             tag: "Website Design - HTML, CSS, JavaScript",          url:"https://github.com/PavitGitHub/Weather-App"},    
+    { title: "Shadow Dance",            tag: "Software Modeling and Design - Java",             url:"https://github.com/PavitGitHub/Shadow-Dance-Game"},
+    { title: "Lucky Thirteen",          tag: "Software Modeling and Design - Java",             url:"https://github.com/PavitGitHub/Lucky-Thirteen-Card"},
+    { title: "Ore Mining Simulator",    tag: "Software Modeling and Design - Java",             url:"https://github.com/PavitGitHub/Ore-Mining-Simulator"},
+    { title: "Pathfinding",             tag: "Algorithms and Data Structure - C"  ,             url:"#"},
 ];
 
 // STATE 

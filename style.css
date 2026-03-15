@@ -1,4 +1,3 @@
-/* RESET & VARIABLES */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -11,6 +10,8 @@
     --fg: #f0ece3;
     --accent: #c8a96e;
     --muted: rgba(240, 236, 227, 0.18);
+    --rule:    rgba(200, 169, 110, 0.12);
+    --panel-bg:#0f0f0f;
 }
 
 /* BASE */
@@ -54,13 +55,51 @@ body::before {
     opacity: 0.5;
 }
 
+/*  PAGE TRANSITIONS  */
+#homePage, #detailPage {
+    position: fixed;
+    inset: 0;
+    transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 1;
+}
+
+#homePage.hidden, #detailPage.hidden {
+    display: none;
+}
+
+#homePage.page-exit, #detailPage.page-exit {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#homePage.page-enter, #detailPage.page-enter {
+    opacity: 0;
+}
+
+
+/*  HOME PAGE  */
 .scene {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     height: 100vh;
     position: relative;
     animation: fadeUp 1s ease both;
+}
+
+.scene-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lines-wrap {
+    position: relative;
+    width: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .line-left, .line-right {
@@ -73,13 +112,8 @@ body::before {
     opacity: 0.6;
 }
 
-.line-left { 
-    left: calc(50% - 260px); 
-}
-
-.line-right { 
-    right: calc(50% - 260px); 
-}
+.line-left  { left: 0; }
+.line-right { right: 0; }
 
 .column {
     display: flex;
@@ -102,7 +136,6 @@ body::before {
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    cursor: none;
 }
 
 .arrow.visible { 
@@ -117,7 +150,71 @@ body::before {
     stroke-width: 1.5;
 }
 
-/* ── Project Title Design ── */
+
+/* Profile Picture Design */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.9s ease both;
+}
+ 
+.profile-photo-ring {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(200, 169, 110, 0.6), rgba(200, 169, 110, 0.15));
+    flex-shrink: 0;
+}
+ 
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #1a1710;
+    border: 1.5px solid #0a0a0a;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+ 
+/* Placeholder avatar — opacity dimmed until real photo is added */
+.profile-photo svg {
+    opacity: 0.45;
+}
+ 
+/* Real photo — swap the <svg> for <img src="assets/your-photo.jpg"> */
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: bottom;
+}
+ 
+.profile-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    opacity: 0.75;
+    text-align: center;
+    line-height: 1.6;
+}
+ 
+.profile-subtitle span {
+    opacity: 0.45;
+    margin: 0 6px;
+}
+
+
+/*  Project Title Design */
 .projects {
     display: flex;
     flex-direction: column;
@@ -227,6 +324,7 @@ body::before {
     letter-spacing: 0.2em;
     color: var(--fg);
     opacity: 0.25;
+    z-index: 10;
 }
 
 /* ── NAME ── */
@@ -265,53 +363,8 @@ body::before {
     z-index: 200;
 }
 
-/* ── CAREER BUTTON ── */
-/* Mirrors the .name label on the top-left — same mono font, sits top-right */
-.career-btn {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    opacity: 0.7;
-    padding-bottom: 2px;
-    /* Animated underline on hover — consistent with project title hover */
-    background-image: linear-gradient(var(--accent), var(--accent));
-    background-size: 0% 1px;
-    background-repeat: no-repeat;
-    background-position: left bottom;
-    transition: opacity 0.3s ease, background-size 0.3s ease;
-}
-
-.career-btn:hover {
-    opacity: 1;
-    background-size: 100% 1px;
-}
-
-/* ── LinkedIn Redirect BUTTON ── */
-.linkedin-btn {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    opacity: 0.7;
-    padding-bottom: 2px;
-    text-decoration: none;
-    /* Animated underline on hover */
-    background-image: linear-gradient(var(--accent), var(--accent));
-    background-size: 0% 1px;
-    background-repeat: no-repeat;
-    background-position: left bottom;
-    transition: opacity 0.3s ease, background-size 0.3s ease;
-}
-
-.linkedin-btn:hover {
-    opacity: 0.9;
-    background-size: 100% 1px;
-}
-
-/* ── RESUME DOWNLOAD BUTTON ── */
+.career-btn,
+.linkedin-btn,
 .resume-btn {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -321,7 +374,6 @@ body::before {
     opacity: 0.7;
     padding-bottom: 2px;
     text-decoration: none;
-    /* Animated underline on hover */
     background-image: linear-gradient(var(--accent), var(--accent));
     background-size: 0% 1px;
     background-repeat: no-repeat;
@@ -329,11 +381,12 @@ body::before {
     transition: opacity 0.3s ease, background-size 0.3s ease;
 }
 
+.career-btn:hover,
+.linkedin-btn:hover,
 .resume-btn:hover {
-    opacity: 0.9;
+    opacity: 1;
     background-size: 100% 1px;
 }
-
 /* ── CAREER PANEL ── */
 /* Full-height drawer that slides in from the right */
 .career-panel {
@@ -345,13 +398,10 @@ body::before {
     background: #0f0f0f;
     border-left: 1px solid rgba(200, 169, 110, 0.15);
     z-index: 500;
-    /* Hidden off-screen by default, slides in when .open is added */
     transform: translateX(100%);
     transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-    /* Scrollable — the timeline can be longer than the viewport */
     overflow-y: auto;
     padding: 80px 48px 60px;
-    /* Hide scrollbar visually while keeping scroll functionality */
     scrollbar-width: none;
 }
 
@@ -491,8 +541,453 @@ body::before {
     pointer-events: auto;
 }
 
-/* ── ANIMATION ── */
+/* ══════════════════════════════════════════════════════
+   DETAIL PAGE
+══════════════════════════════════════════════════════ */
+#detailPage {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+}
+
+/* ── Back button ── */
+.back-btn {
+    position: fixed;
+    top: 36px;
+    left: 48px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    z-index: 200;
+    padding: 0;
+    transition: opacity 0.3s ease;
+}
+.back-btn:hover { opacity: 1; }
+.back-btn svg {
+    width: 14px; height: 14px;
+    stroke: currentColor;
+    fill: none;
+}
+
+/* ── Detail header ── */
+.detail-header {
+    padding: 80px 0 0 0;
+    text-align: center;
+    flex-shrink: 0;
+    animation: fadeDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    position: relative;
+    z-index: 2;
+}
+
+.detail-title-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.detail-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    line-height: 1;
+    transition: opacity 0.2s ease;
+}
+
+.detail-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+/* Thin gold rule below header */
+.detail-header::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 20px auto 0;
+    opacity: 0.5;
+}
+
+/* ── Three-column body ── */
+.detail-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    margin-top: 0;
+    animation: fadeUp 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.detail-col {
+    flex: 1;
+    padding: 32px 40px 40px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    position: relative;
+}
+.detail-col::-webkit-scrollbar { display: none; }
+
+/* Vertical rules between columns */
+.col-rule {
+    width: 1px;
+    background: var(--rule);
+    flex-shrink: 0;
+    margin: 20px 0;
+}
+
+/* ── Col label (small heading) ── */
+.col-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 28px;
+}
+
+/* ══════════════════════════════════════════════════════
+   COL 1 — Detail project navigator
+══════════════════════════════════════════════════════ */
+.col-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-nav-scene {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.detail-nav-list {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+}
+
+.detail-nav-item {
+    position: absolute;
+    width: 100%;
+    text-align: left;
+    transition:
+        transform  0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity    0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        font-size  0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    user-select: none;
+    will-change: transform, opacity;
+}
+
+.detail-nav-title {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--fg);
+    display: inline-block;
+    padding: 2px 0;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: color 0.25s ease, background-size 0.3s ease;
+}
+
+.detail-nav-item.active:hover .detail-nav-title {
+    color: var(--accent);
+    background-size: 100% 1px;
+}
+
+.detail-nav-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.4s;
+    margin-top: 6px;
+    display: block;
+}
+
+.detail-nav-item.active .detail-nav-tag { opacity: 0.8; }
+
+.detail-nav-divider {
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+    margin: 10px 0 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s;
+    opacity: 0;
+}
+
+.detail-nav-item.active .detail-nav-divider {
+    transform: scaleX(1);
+    opacity: 0.5;
+}
+
+/* Smaller arrows for detail nav */
+.detail-arrow {
+    padding: 8px 0;
+}
+
+/* ══════════════════════════════════════════════════════
+   COL 2 — Description + video
+══════════════════════════════════════════════════════ */
+.col-desc {
+    transition: opacity 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.desc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 20px;
+}
+
+.desc-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    line-height: 1.85;
+    color: var(--fg);
+    opacity: 0.75;
+    margin-bottom: 28px;
+}
+
+/* Video */
+.video-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    background: #111;
+}
+
+.video-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    background: rgba(200,169,110,0.02);
+}
+
+.vp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.3;
+}
+
+/* GitHub link button */
+.github-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    opacity: 0.7;
+    padding-bottom: 2px;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: opacity 0.3s ease, background-size 0.3s ease;
+    margin-top: auto;
+}
+
+.github-link-btn:hover {
+    opacity: 1;
+    background-size: 100% 1px;
+}
+
+.arrow-icon {
+    font-size: 0.9em;
+}
+
+/* ══════════════════════════════════════════════════════
+   COL 3 — GitHub card
+══════════════════════════════════════════════════════ */
+.col-github {
+    transition: opacity 0.25s ease;
+}
+
+.gh-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 20px;
+}
+
+.gh-card {
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 24px;
+    background: rgba(200,169,110,0.02);
+}
+
+.gh-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.gh-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--fg);
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.gh-repo-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--fg);
+    opacity: 0.8;
+    word-break: break-all;
+}
+
+.gh-divider {
+    height: 1px;
+    background: var(--rule);
+    margin-bottom: 24px;
+}
+
+.gh-readme-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    padding: 20px 16px;
+}
+
+.gh-readme-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.6rem;
+    color: var(--accent);
+    opacity: 0.25;
+    letter-spacing: -0.05em;
+}
+
+.gh-readme-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+    color: var(--fg);
+    opacity: 0.45;
+    max-width: 220px;
+}
+
+.gh-open-btn {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(200,169,110,0.3);
+    padding: 8px 20px;
+    transition: border-color 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+.gh-open-btn:hover {
+    opacity: 1;
+    border-color: var(--accent);
+    background: rgba(200,169,110,0.06);
+}
+
+.gh-meta {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+}
+
+.gh-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--fg);
+    opacity: 0.4;
+}
+
+.gh-meta-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════════════════ */
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-8px); }
     to   { opacity: 1; transform: translateY(0); }
 }

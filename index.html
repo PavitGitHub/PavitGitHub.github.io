@@ -16,29 +16,10 @@
     <!-- Cursor -->
     <div class="cursor" id="cursor"></div>
 
-    <!-- Top Left -->
-    <div class="name">— Pavit Vathna</div>
-
-    <!-- Bottom Left -->
-    <div class="hint">scroll to explore</div>
-
-    <!-- Bottom Right -->
-    <div class="counter" id="counter">01 / 06</div>
-
-    <!-- Top-right navigation buttons -->
-     <div class="top-right-btns">
-        <!-- Career button -->
-        <div class="career-btn" id="careerBtn">Career</div>
-        <!-- LinkedIn button -->
-        <a class="linkedin-btn" href="https://www.linkedin.com/in/pavitvathna/" target="_blank">LinkedIn</a>
-        <!-- Resume button -->
-        <a class="resume-btn" href="assets/Pavit_Vathna_Resume_2026.pdf" target="_blank">Resume</a>
-     </div>
-     
-    <!-- Career overlay -->
+    <!-- Career Overlay -->
     <div class="career-overlay" id="careerOverlay"></div>
 
-    <!-- Career panel — slides in from the right -->
+    <!-- Career Panel -->
     <div class="career-panel" id="careerPanel">
         <div class="career-close" id="careerClose">✕ close</div>
         <div class="career-heading">Career</div>
@@ -66,7 +47,7 @@
                 <div class="year-entries">
                     <div class="entry">
                         <span class="entry-month">Mar</span>
-                        <span class="entry-text">Started Master of Artificial Intelligence at Monash University Clayton Campus </span>
+                        <span class="entry-text">Started Master of Artificial Intelligence at Monash University Clayton Campus</span>
                     </div>
                 </div>
             </div>
@@ -129,7 +110,7 @@
                     </div>
                     <div class="entry">
                         <span class="entry-month">Sep</span>
-                        <span class="entry-text">Completed my first consulting program in Health & Fitness industry with YogaCita - Digital Industry Project </span>
+                        <span class="entry-text">Completed my first consulting program in Health & Fitness industry with YogaCita - Digital Industry Project</span>
                     </div>
                     <div class="entry">
                         <span class="entry-month">Jul</span>
@@ -192,31 +173,122 @@
         </div>
     </div>
 
+    <!--  HOME PAGE  -->
+    <div id="homePage">
 
-    <!-- Project Titles -->
-    <div class="scene">
-        <div class="line-left"></div>
-        <div class="line-right"></div>
+        <!-- Top Left -->
+        <div class="name">— Pavit Vathna</div>
 
-        <div class="column">
-            <!-- Up arrow should only be visible when there are items above -->
-            <div class="arrow" id="arrowUp">
-                <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-            </div>
+        <!-- Bottom Left -->
+        <div class="hint">scroll to explore</div>
 
-            <!-- Project items here between arrows -->
-            <div class="projects" id="projects"></div>
+        <!-- Bottom Right -->
+        <div class="counter" id="counter">01 / 06</div>
 
-            <!-- Down arrow should only be visible when there are items below -->
-            <div class="arrow" id="arrowDown">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        <!-- Top-right navigation buttons -->
+        <div class="top-right-btns">
+            <div class="career-btn" id="careerBtn">Career</div>
+            <a class="linkedin-btn" href="https://www.linkedin.com/in/pavitvathna/" target="_blank">LinkedIn</a>
+            <a class="resume-btn" href="assets/Pavit_Vathna_Resume_2026.pdf" target="_blank">Resume</a>
+        </div>
+
+        
+        <div class="scene">
+            <div class="scene-inner">
+ 
+                <!-- Profile Section -->
+                <div class="profile-section">
+                    <div class="profile-photo-ring">
+                        <div class="profile-photo">
+                            <img src="assets/profile.jfif" alt="Pavit Vathna">
+                        </div>
+                    </div>
+                    <div class="profile-subtitle">
+                        Master of AI<span>·</span>Monash University
+                    </div>
+                </div>
+ 
+                <!-- Project Titles -->
+                <div class="lines-wrap">
+                    <div class="line-left"></div>
+                    <div class="line-right"></div>
+ 
+                    <div class="column">
+                        <div class="arrow" id="arrowUp">
+                            <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+                        </div>
+                        <div class="projects" id="projects"></div>
+                        <div class="arrow" id="arrowDown">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                    </div>
+                </div>
+ 
             </div>
         </div>
+ 
+    </div>
+
+    <!-- PROJECT INFORMATION PAGE -->
+    <div id="detailPage" class="hidden">
+
+        <!-- Back button -->
+        <button class="back-btn" id="backBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            <span>Back</span>
+        </button>
+
+        <!-- Detail header -->
+        <div class="detail-header">
+            <div class="detail-title-wrap">
+                <h1 class="detail-title" id="detailTitle"></h1>
+                <span class="detail-tag" id="detailTag"></span>
+            </div>
+        </div>
+
+        <!-- Three-column body -->
+        <div class="detail-body">
+
+            <!-- COL 1 — Project navigator -->
+            <div class="detail-col col-nav" id="colNav">
+                <div class="col-label">Projects</div>
+
+                <div class="detail-nav-scene">
+                    <div class="arrow detail-arrow" id="detailArrowUp">
+                        <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+                    </div>
+                    <div class="detail-nav-list" id="detailNav"></div>
+                    <div class="arrow detail-arrow" id="detailArrowDown">
+                        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vertical rule -->
+            <div class="col-rule"></div>
+
+            <!-- COL 2 — Description + video -->
+            <div class="detail-col col-desc" id="colDesc">
+                <!-- Filled by JS -->
+            </div>
+
+            <!-- Vertical rule -->
+            <div class="col-rule"></div>
+
+            <!-- COL 3 — GitHub -->
+            <div class="detail-col col-github" id="colGithub">
+                <!-- Filled by JS -->
+            </div>
+
+        </div>
+
     </div>
 
     <!-- Interactivity -->
     <script src="script.js"></script>
 
 </body>
-
 </html>
+
